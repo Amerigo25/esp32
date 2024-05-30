@@ -25,8 +25,6 @@
 #define I2C_NUM I2C_NUM_0
 #define I2C_MASTER_FREQ_HZ 400000
 
-#define BUZZER 21
-
 #define SAMPLE_RATE 16000
 #define BUFFER_SIZE	256
 #define SCREEN_WIDTH 128
@@ -161,59 +159,6 @@ void drawTask(void *args) {
 
 	}
 }
-
-
-
-/*
-void plot_task (void *args){
-
-	init_i2s();
-	init_oled(&dev);
-	int16_t* r_buff = (int16_t*)malloc(BUFFER_SIZE*sizeof(int16_t));
-	uint8_t* draw_buff = (uint8_t*)malloc(BUFFER_SIZE); // circular buffer 
-	
-	size_t r_bytes = 0;
-	size_t r_samples = 0;			
-	sh1107_direction(&dev, DIRECTION90);
-	sh1107_display_text(&dev,0,0,"x: 0",6,false);
-	sh1107_display_text(&dev,1,0,"y: 0",6,false);
-
-	while(1) {
-		// r_buff -> when passing an array to a function it decays to a pointer to is first element!					
-		if (i2s_read(I2S_NUM_0, r_buff, BUFFER_SIZE*sizeof(int16_t), &r_bytes, 1000) == ESP_OK) {
-			r_samples = r_bytes/sizeof(int16_t);
-			printf("Number of samples: %d\n",r_samples);
-			
-			int16_t max = 0;
-			int16_t min = 0;
-			for (int i = 0; i < r_samples; i++) {
-				
-				if (r_buff[i] > max) {
-					max = r_buff[i];
-				}
-				if (r_buff[i] < min) {
-					min = r_buff[i];
-				}
-				
-				printf("max: %d\n",max);
-				printf("min: %d\n",min);
-				
-				printf("%d\n",r_buff[i]);
-			}
-			
-
-			buffer_to_draw(r_buff,draw_buff);
-			sh1107_plot_audio(&dev,draw_buff,0);
-	
-
-
-		}
-	}
-		free(r_buff);
-		free(draw_buff);
-		vTaskDelete(NULL);
-}
-*/
 
 void app_main(void)
 {			
